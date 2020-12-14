@@ -8,7 +8,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "rename": "npx react-native-rename"
+    "rename": "npx react-native-rename",
+    "set:icon": "react-native set-icon",
+    "set:splashscreen": "react-native set-splash"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -26,6 +28,7 @@
     "@babel/preset-env": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.8.4",
+    "@bam.tech/react-native-make": "^3.0.0",
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.63.40",

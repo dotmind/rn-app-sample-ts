@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5A996AE1F1DE3EF13317735B /* libPods-RNAppSampleTS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 673D05D604B73EA17057FEE7 /* libPods-RNAppSampleTS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AA27F0382587BCB900A4A133 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA27F0372587BCB900A4A133 /* SplashScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		79952816780A936302D9E34F /* libPods-RNAppSampleTS-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNAppSampleTS-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB0893448791F17F8816BAB /* Pods-RNAppSampleTS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAppSampleTS.release.xcconfig"; path = "Target Support Files/Pods-RNAppSampleTS/Pods-RNAppSampleTS.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RNAppSampleTS/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AA27F0372587BCB900A4A133 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		B732D9C9D850BC10466100D5 /* Pods-RNAppSampleTS-RNAppSampleTSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAppSampleTS-RNAppSampleTSTests.debug.xcconfig"; path = "Target Support Files/Pods-RNAppSampleTS-RNAppSampleTSTests/Pods-RNAppSampleTS-RNAppSampleTSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D7F3BD2064F0FFB2561F75AA /* Pods-RNAppSampleTS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAppSampleTS-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RNAppSampleTS-tvOS/Pods-RNAppSampleTS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		DB19A7E6DB4133170D84A460 /* Pods-RNAppSampleTS-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNAppSampleTS-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RNAppSampleTS-tvOSTests/Pods-RNAppSampleTS-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				AA27F0372587BCB900A4A133 /* SplashScreen.storyboard */,
 			);
 			name = RNAppSampleTS;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				AA27F0382587BCB900A4A133 /* SplashScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
