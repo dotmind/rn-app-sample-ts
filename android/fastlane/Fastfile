@@ -1,0 +1,108 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+  
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    new_version_name, new_build_version = convert_git_tag_to_version_build()
+  
+    # Build app with new build version number incremented
+    begin
+      gradle(
+        task: "clean assembleRelease",
+        properties: {
+          "versName" => new_version_name,
+          "versCode" => new_build_version
+        }
+      )
+      # Upload to Play Store on Beta track
+      upload_to_play_store
+      # Send a success message to Teams channel
+      message("success", new_version_name, new_build_version)
+    rescue => exception
+      # Send an error message to Slack channel
+      message("error", new_version_name, new_build_version, exception.to_s)
+    end
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+end
+
+def message(status, new_version_name, new_build_version, error = "")
+  desc "Send status message"
+
+  title = ""
+  if(status === "success")
+    then title = "A new Android Beta build is available 🚀"
+    else title = "❌ An error occured on the last Android deploy..."
+  end
+  
+  link = "https://play.google.com/apps/internaltest/4699638670597821737"
+  html_link = "<a href=\""+link+"\">Beta URL</a>"
+
+  slack(
+    slack_url: "" # Generate your Slack API Bot URL with https://api.slack.com/messaging/webhooks,
+    message: message,
+    channel: "" # Your channel ID,
+    success: status === "success",
+    payload: {
+      "Build Date" => Time.new.to_s,
+      "Built by" => "Fastlane",
+      "Platform" => "Android",
+      "Version Number" => new_version_name,
+      "Build Version" => version_build,
+    },
+    default_payloads: [:git_branch, :git_author], 
+    attachment_properties: {
+      fields: [{
+        title: "Error message",
+        value: error,
+        short: false,
+      }]
+    }
+  )
+end
+
+def convert_git_tag_to_version_build()
+  full_version_name = ""
+  version_name = ""
+  build_number = ""
+
+  if is_ci
+    full_version_name = last_git_tag()
+    puts "Found Git Tag : " + full_version_name
+    full_version_name = full_version_name[/(?<=v)(.*)([0-9])/]
+    version_name = full_version_name[/.*(?=\.)/]
+    build_number = full_version_name.sub(/.*(?=\.)./, '')
+  else
+    version_name = prompt(
+      text: "Enter the version name : "
+    )
+    build_number = prompt(
+      text: "Enter the build number : "
+    )
+  end
+  puts "Found Version Name : " + version_name
+  puts "Found Build Number : " + build_number
+  return version_name, build_number
+end

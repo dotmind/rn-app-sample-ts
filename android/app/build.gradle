@@ -132,8 +132,32 @@ android {
         applicationId "com.rnappsamplets"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        def versionMajor = 0
+        def versionMinor = 1
+        def versionPatch = 0
+        def versionBuild = 1
+
+        def getVersionCode = { ->
+        def code = project.hasProperty('versCode')
+            ? versCode as Integer
+            : versionMajor.toInteger() * 1000000 +
+            versionMinor.toInteger() * 100000 +
+            versionPatch.toInteger() * 10000 +
+            versionBuild.toInteger()
+        println "VersionCode is set to $code"
+        return code
+        }
+
+        def getVersionName = { ->
+        def name = project.hasProperty('versName')
+            ? versName
+            : "$versionMajor.$versionMinor.$versionPatch"
+        println "VersionName is set to $name"
+        return name
+        }
+        
+        versionName getVersionName()
+        versionCode getVersionCode()
     }
     splits {
         abi {

@@ -1,0 +1,111 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    begin
+      # Get all needed certificates from App Store Connect for development
+      match(type: "development")
+      # Get all needed certificates from App Store Connect for appstore
+      match(type: "appstore")
+      # Build Cocoapods (same like "pod install" in cli)
+      cocoapods
+
+      version_name, build_number = convert_git_tag_to_version_build()
+  
+      # Increment locally on XCode projects version number
+      new_version_name = increment_version_number(
+        version_number: version_name
+      )
+
+      # Increment locally on XCode projects build number
+      new_build_version = increment_build_number({
+        build_number: build_number
+      })
+
+      # Build app
+      build_app(
+        workspace: "RNAppSampleTS.xcworkspace",
+        scheme: "RNAppSampleTS"
+      )
+      # Upload app on TestFlight
+      upload_to_testflight
+      # Send a success message to Teams channel
+      message("success", new_build_version)
+    rescue => exception
+      # Send an error message to Slack channel
+      message("error", new_build_version, exception.to_s)
+    end
+  end
+end
+
+def message(status, new_version_name, new_build_version, error = "")
+  desc "Send status message"
+
+  title = ""
+  if(status === "success")
+    then title = "A new iOS Beta build is available 🚀"
+    else title = "❌ An error occured on the last iOS deploy..."
+  end
+  
+  link = "https://play.google.com/apps/internaltest/4699638670597821737"
+  html_link = "<a href=\""+link+"\">Beta URL</a>"
+
+  slack(
+    slack_url: "" # Generate your Slack API Bot URL with https://api.slack.com/messaging/webhooks,
+    message: message,
+    channel: "" # Your channel ID,
+    success: status === "success",
+    payload: {
+      "Build Date" => Time.new.to_s,
+      "Built by" => "Fastlane",
+      "Platform" => "iOS",
+      "Version Number" => new_version_name,
+      "Build Version" => version_build,
+    },
+    default_payloads: [:git_branch, :git_author], 
+    attachment_properties: {
+      fields: [{
+        title: "Error message",
+        value: error,
+        short: false,
+      }]
+    }
+  )
+end
+
+def convert_git_tag_to_version_build()
+  full_version_name = ""
+  version_name = ""
+  build_number = ""
+
+  if is_ci
+    full_version_name = last_git_tag()
+    puts "Found Git Tag : " + full_version_name
+    full_version_name = full_version_name[/(?<=v)(.*)([0-9])/]
+    version_name = full_version_name[/.*(?=\.)/]
+    build_number = full_version_name.sub(/.*(?=\.)./, '')
+  else
+    version_name = prompt(
+      text: "Enter the version name : "
+    )
+    build_number = prompt(
+      text: "Enter the build number : "
+    )
+  end
+  puts "Found Version Name : " + version_name
+  puts "Found Build Number : " + build_number
+  return version_name, build_number
+end
