@@ -21,6 +21,7 @@ module.exports = {
           icons: './icons',
           images: './images',
           config: './src/config',
+          contants: './src/contants',
           containers: './src/containers',
           components: './src/components',
           navigators: './src/navigators',

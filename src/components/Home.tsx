@@ -25,13 +25,18 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 };
 
-const Home = ({ navigation }: Props) => (
-  <View 
-    style={styles.container}>
-    <CustomButton
-      title={'Scroll view demo'}
-      onPress={() => navigation.navigate('ScrollViewDemo')} />
-  </View>
-);
+const Home = ({ navigation }: Props) => {
+  const _handleNavigate = () => {
+    navigation.navigate('ScrollViewDemo')
+  }
+  return (
+    <View 
+      style={styles.container}>
+      <CustomButton
+        title={'Scroll view demo'}
+        onPress={_handleNavigate} />
+    </View>
+  )
+}
 
 export default Home;

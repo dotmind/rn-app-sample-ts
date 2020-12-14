@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, View, StyleSheet } from 'react-native';
+import { Colors } from 'src/contants/Style';
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -15,7 +16,7 @@ type Props = {
 const CustomButton = (props: Props) => (
   <View style={styles.buttonContainer}>
     <Button
-      color={'#26a69a'}
+      color={Colors.secondary}
       {...props} />
   </View>
 );

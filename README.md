@@ -1,6 +1,10 @@
-<img src="logo.png" alt="logo" height="150"/>
-
 # RN App Sample TS
+
+<img
+  src="logo.png"
+  alt="logo"
+  height="150"
+  />
 
 > v1.0.1
 
