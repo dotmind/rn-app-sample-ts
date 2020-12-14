@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    // Process & infer types from .js files.
+    "allowJs": true,
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    // Enable strictest settings like strictNullChecks & noImplicitAny.
+    "strict": true,
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "icons/*": ["./assets/icons/*"],
+      "images/*": ["./assets/images/*"],
+      "config/*": ["./src/config/*"],
+      "containers/*": ["./src/containers/*"],
+      "components/*": ["./src/components/*"],
+      "navigators/*": ["./src/navigators/*"],
+      "types/*": ["./src/types/*"],
+      "actions/*": ["./src/actions/*"],
+      "api/*": ["./src/api/*"],
+      "reducers/*": ["./src/reducers/*"],
+      "constants/*": ["./src/constants/*"],
+      "sagas/*": ["./src/sagas/*"],
+      "infrastructure/*": ["./src/infrastructure/*"],
+      "selectors/*": ["./src/selectors/*"],
+      "utils/*": ["./src/utils/*"],
+      "translations/*": ["./src/translations/*"],
+      "services/*": ["./src/services/*"],
+      "forms/*": ["./src/forms/*"],
+      "middlewares/*": ["./src/middlewares/*"],
+      "generated/*": ["./src/generated/*"],
+      "src/*": ["./src/*"]
+    },
+    "typeRoots": ["node_modules/@types", "src/@types"]
+  },
+  "include": ["src/**/*"]
+}
