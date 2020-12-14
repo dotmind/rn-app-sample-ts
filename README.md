@@ -14,7 +14,9 @@
 * React Navigation
 * Babel Module Resolver
 * [React Native Rename](https://www.npmjs.com/package/react-native-rename)
-* [React Native Make](https://github.com/bamlab/react-native-make/blob/master/docs/set-icon.md)
+* [React Native Make](https://github.com/bamlab/react-native-make)
+* Workflows CI/CD Github
+* Fastlane iOS & Android
 
 ## Init project
 
@@ -41,3 +43,63 @@
 `npm run set:splashscreen -- --path "splashscreen-logo.png" --resize "center" --background "#E91E63"`
 
 ***Dont forget to delete & re-run your app to watch assets changes***
+
+## Configure Github Workflows
+
+### Release Workflow
+
+> Please configure your Fastlane config before to start here.
+
+1- Create Github CI/CD environment variables for iOS:
+
+* MATCH_PASSWORD
+* FASTLANE_USER
+* FASTLANE_PASSWORD
+* FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+
+2- Create Github CI/CD environment variables for Android:
+
+* ANDROID_KEYSTORE_FILE
+* APP_RELEASE_KEY_ALIAS
+* APP_RELEASE_KEY_PASSWORD
+* APP_RELEASE_STORE_PASSWORD
+
+
+### Auto Labeler Workflow (Need Review --> GTG)
+
+Auto Label your PR approvals to GTG.
+
+1- Create Github CI/CD environment variables:
+
+* GITHUB_TOKEN
+
+## Configure Fastlane
+
+### Fastlane Slack Notifications
+
+> Generate your Slack API Bot URL with [https://api.slack.com/messaging/webhooks](https://api.slack.com/messaging/webhooks)
+
+Make this changes in `ios/fastlane/Fastfile` & `android/fastlane/Fastfile`:
+1- **slack_url**
+2- **channel**
+
+### Fastlane iOS
+
+1- Configure Appfile
+
+* app_identifier
+* apple_id
+* itc_team_id
+* team_id
+
+2- Configure Matchfile
+
+* git_url
+* username
+
+### Fastlane Android
+
+Configure Appfile
+
+* json_key_file
+* package_name
